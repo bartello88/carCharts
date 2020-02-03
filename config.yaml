@@ -1,0 +1,27 @@
+config:
+  regions:
+    - us
+    - eu
+    - apac
+    - lam
+    - zaf
+    - rus&ukr
+  us:
+    name: us
+    cars:
+  eu:
+    name: eu
+    cars:
+  apac:
+    name: apac
+    cars:
+  lam: l
+    name: lam
+    cars:
+  zaf:
+    name: zaf
+    cars:
+  rus&ukr:
+    name: rus&ukr
+    cars:
+databases:
