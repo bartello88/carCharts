@@ -1,3 +1,22 @@
-.nav>ul>li{
-    float: right;
+h1{
+    margin: 10px;
+}
+.region-container{
+    display:grid;
+    width:80vw;
+    margin: auto;
+    grid-template-columns:repeat(3, 1fr);
+    grid-auto-rows:300px;
+    grid-gap: 80px;
+    align-items: stretch;
+}
+.region-item{
+    height: 300px;
+    width: 400px;
+    border:#D7D7D7 solid 1px;
+    transition: all 0.2s ease;
+    border-radius: 5px;
+}
+.region-item:hover{
+    transform: scale(1.05);
 }
