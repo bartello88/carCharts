@@ -1,9 +1,9 @@
 h1{
     margin: 10px;
 }
-body{
-    background-color: lightgray;
-    opacity:02;
+.main-container{
+    background-image: url(img/backgorund.png);
+    opacity:0.9;
     z-index: 0;
 }
 img{
