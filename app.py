@@ -16,6 +16,10 @@ def home():
 
 if __name__ == '__name__':
     app.run()
+
+
+
+
 def loadYaml():
     with open('config.yaml', 'r') as file:
         data = yaml.load(file, Loader=yaml.FullLoader)
