@@ -6,3 +6,11 @@ config:
     - lam
     - zaf
     - rus&ukr
+cars:
+  us:
+    carlist:
+  eu:
+  apac:
+  lam:
+  zaf:
+  rus&ukr:
