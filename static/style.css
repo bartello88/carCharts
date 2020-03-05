@@ -31,3 +31,19 @@ img{
 .region-item:hover{
     transform: scale(1.03);
 }
+.cars-list{
+    text-align: center;
+    margin: auto;
+    margin-bottom:2px;
+    width:700px;
+    transition: all ease 0.2s;
+}
+.cars-list:hover{
+    transform:scale(1.03)
+}
+ul{
+    float: left;
+}
+/*.car-container{*/
+/*    float:left;*/
+/*}*/

@@ -8,9 +8,80 @@ config:
     - rus&ukr
 cars:
   us:
-    carlist:
+    - TOYOTA58
+    - TOYOTA59
+    - TOYOTA60
+    - TOYOTA62
+    - TOYOTA63
+    - TOYOTA64
+    - TOYOTA66
+    - TOYOTA67
+    - TOYOTA68
+    - TOYOTA70
+    - TOYOTA75
+    - TOYOTA78
+    - TOYOTA79
+    - TOYOTA82
+    - TOYOTA84
+    - TOYOTA85
+    - TOYOTA86
+    - TOYOTA87
+    - TOYOTA88
+    - TOYOTA89
+    - TOYOTA90
+    - TOYOTA91
+    - TOYOTA92
+    - TOYOTA93
+    - TOYOTA95
   eu:
+    - EL7S234
+    - EL7S238
+    - EL7S239
+    - EL7S240
+    - EL7S241
+    - EL7S236
+    - EL7S242
+    - EL7S237
+    - EL7S233
+    - EL7S235
+    - EL7S243
+    - EL7S244
+    - EL7S245
+    - EL7S246
+    - EL1T890
+    - WY6794L
+    - WY6795L
+    - WY6796L
+    - WY6797L
+    - WY6798L
+    - WY6799L
+    - WY9392K
+    - WY9794K
+    - WY9544K
+    - 34BYS070
+    - 34BYT370
+    - 34BYU787
+    - 34BYU794
   apac:
+    - 51G67188
+    - ABF8551
+    - B-2797-PKA
+    - CZU60P
+    - THA-8937
+    - TWN-0755
   lam:
+    - 539ZWU
+    - E43BAR
+    - FRN-0681
+    - FZT-6579
+    - KGCT-50
   zaf:
+    - CW24YYGP
+    - CW24ZFGP
   rus&ukr:
+    - B038HT799
+    - B060HT799
+    - B087HT799
+    - O527MH799
+    - O690MH799
+    - O789MH799
