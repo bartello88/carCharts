@@ -14,7 +14,8 @@ def home():
 @app.route('/home/<region>')
 def region(region):
     regions, cars = loadYaml()
-    return render_template('region.html', region=region, cars=cars)
+    carss = ["Audi", "BMW", "VW"]
+    return render_template('region.html', region=region, cars=cars, carss=carss)
 
 @app.route('/home/<region>/<car>')
 def car(region, car):

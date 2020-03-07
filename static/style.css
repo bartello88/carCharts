@@ -10,6 +10,7 @@ img{
     height:100%;
 }
 .region-container{
+    position: relative;
     display:grid;
     width:70vw;
     margin: auto;
@@ -20,6 +21,7 @@ img{
 
 }
 .region-item{
+    position: relative;
     height: 300px;
     width: 400px;
     border:#D7D7D7 solid 1px;
@@ -31,19 +33,54 @@ img{
 .region-item:hover{
     transform: scale(1.03);
 }
+
+.region-item:hover .region-top{
+    opacity: 0.8;
+
+}
+
+.region-top{
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    background-color: white;
+    width: 398px;
+    color: black;
+    opacity: 0.0;
+    overflow: hidden;
+}
 .cars-list{
     text-align: center;
     margin: auto;
     margin-bottom:2px;
-    width:700px;
+    width:300px;
     transition: all ease 0.2s;
 }
+
 .cars-list:hover{
     transform:scale(1.03)
+
 }
-ul{
+.cars{
+    width: 350px;
     float: left;
 }
-/*.car-container{*/
-/*    float:left;*/
-/*}*/
+
+.car-container{
+    display: inline-block;
+}
+.region-statistics{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+    float: left;
+    border: 1px solid lightgrey;
+    width: 80vw;
+    height: 85vh;
+}
+
+#myChart{
+    position: absolute;
+    width: 60vw;
+    height: 70vh;
+}

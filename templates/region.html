@@ -1,12 +1,44 @@
 {% extends 'layout.html '%}
 {% block body %}
-    <h1>{{region}}</h1>
-    <div class="car-container">
+<h1>{{region}}</h1>
+<div class="car-container">
+    <div class="cars">
         {% for car in cars[region]['cars'] %}
-            <a href="http://127.0.0.1:5000/home/{{region}}/{{car}}"><li class="cars-list list-group-item list-group-item-success">{{car}}</li></a>
+        <a href="http://127.0.0.1:5000/home/{{region}}/{{car}}">
+            <li class="cars-list list-group-item list-group-item-success">{{car}}</li>
+        </a>
         {% endfor %}
     </div>
-    </di>
+    <div class="region-statistics">
+        <canvas class="myChart" width="400" height="400"></canvas>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+const chart = document.getElementsByClassName('myChart');
+const newChart1 = new Chart(chart,{
+    type: 'polarArea',
+    data:{
+        labels:['Audi', 'BMW', "VW"],
+        datasets:[{
+            label:'Population',
+            data:[100,200,400],
+        }]
+    },
+    options: {
+        // apply to change chart's size
+        responsive: false,
+        // make charts looks better
+        devicePixelRatio: 5,
+        scales: {
+            yAxes: [{
+                ticks: {
+                beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
 {% endblock %}
-{% block script %}
-{% endblock %}
+

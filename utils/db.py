@@ -54,8 +54,6 @@ def select_single(connection, query, params):
     row = select_single_row(connection, query, params)
     if row is None:
         return None
-    return row[0]
-
 
 def select_all(connection, query, params):
     cursor = connection.cursor()

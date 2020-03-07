@@ -5,7 +5,7 @@
             <h1>Main page</h1>
             <div class="region-container">
                 {% for region in regions %}
-                    <div class="region-item" id={{region}}><a href="http://127.0.0.1:5000/home/{{region}}"><img src="static/img/{{region}}.png"></a></div>
+                    <div class="region-item" id={{region}}><div class="region-top"><h3>{{region}}</h3></div><a href="http://127.0.0.1:5000/home/{{region}}"><img src="static/img/{{region}}.png"></a></div>
                 {% endfor %}
             </div>
         </div>

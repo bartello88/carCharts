@@ -1,7 +1,33 @@
 {% extends 'layout.html '%}
 {% block body %}
     <h1>{{car}}</h1>
+<canvas class="myChart" width="400" height="400"></canvas>
 
-{% endblock %}
-{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+const chart = document.getElementsByClassName('myChart');
+const newChart1 = new Chart(chart,{
+    type: 'polarArea',
+    data:{
+        labels:['Audi', 'BMW', 'VW'],
+        datasets:[{
+            label:'Population',
+            data:[100,200,400],
+        }]
+    },
+    options: {
+    // apply to change chart's size
+        responsive: false,
+        // make charts looks better
+        devicePixelRatio: 5,
+        scales: {
+            yAxes: [{
+                ticks: {
+
+            }]
+        }
+    }
+});
+</script>
+
 {% endblock %}
