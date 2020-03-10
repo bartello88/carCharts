@@ -10,12 +10,15 @@
         {% endfor %}
     </div>
     <div class="region-statistics">
-        <canvas class="myChart" width="400" height="400"></canvas>
+        <canvas class="myChart" width="500" height="400"></canvas>
+        <canvas class="myChart2" width="500" height="400"></canvas>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 const chart = document.getElementsByClassName('myChart');
+const chart2 = document.getElementsByClassName('myChart2');
 const newChart1 = new Chart(chart,{
     type: 'polarArea',
     data:{
@@ -23,13 +26,14 @@ const newChart1 = new Chart(chart,{
         datasets:[{
             label:'Population',
             data:[100,200,400],
+            backgroundColor: ['#f1c40f','#e67e22', '#16a085'],
         }]
     },
     options: {
         // apply to change chart's size
         responsive: false,
         // make charts looks better
-        devicePixelRatio: 5,
+        devicePixelRatio: 2,
         scales: {
             yAxes: [{
                 ticks: {
@@ -39,6 +43,31 @@ const newChart1 = new Chart(chart,{
         }
     }
 });
+const newChart2 = new Chart(chart2,{
+    type: 'bar',
+    data:{
+        labels:['Audi', 'BMW', "VW"],
+        datasets:[{
+            label:'Population',
+            data:[100,200,400],
+            backgroundColor: ['#49AFFE','#FE4949', '#FE49EE']
+        }]
+    },
+    options: {
+        // apply to change chart's size
+        responsive: false,
+        // make charts looks better
+        devicePixelRatio: 2,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
 </script>
 {% endblock %}
 

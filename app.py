@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, jsonify
 import yaml
+from car import Car
+from data import get_data
 
 app = Flask(__name__)
 
@@ -17,13 +19,20 @@ def region(region):
     carss = ["Audi", "BMW", "VW"]
     return render_template('region.html', region=region, cars=cars, carss=carss)
 
+
 @app.route('/home/<region>/<car>')
 def car(region, car):
-
     return render_template('car.html', car=car)
 
+#------------------------------------
+@app.route('/home/test')
+def data():
+    car = Car('TWN', 'APAC', 345)
+    object = get_data()
+    print(object)
+    return jsonify(object)
 
-
+#------------------------------------
 if __name__ == '__name__':
     app.run()
 
@@ -32,5 +41,7 @@ def loadYaml():
     with open('config.yaml', 'r') as file:
         data = yaml.load(file, Loader=yaml.FullLoader)
         regions = data['config']['regions']
-        cars = { 'us': {'cars':data['cars']['us']},'eu': {'cars':data['cars']['eu']}, 'lam': {'cars':data['cars']['lam']}, 'apac': {'cars':data['cars']['apac']}, 'zaf': {'cars':data['cars']['zaf']}, 'rus&ukr': {'cars':data['cars']['rus&ukr']}}
+        cars = {'us': {'cars': data['cars']['us']}, 'eu': {'cars': data['cars']['eu']},
+                'lam': {'cars': data['cars']['lam']}, 'apac': {'cars': data['cars']['apac']},
+                'zaf': {'cars': data['cars']['zaf']}, 'rus&ukr': {'cars': data['cars']['rus&ukr']}}
         return regions, cars

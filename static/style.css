@@ -76,11 +76,7 @@ img{
     float: left;
     border: 1px solid lightgrey;
     width: 80vw;
-    height: 85vh;
+    height: 86vh;
 }
 
-#myChart{
-    position: absolute;
-    width: 60vw;
-    height: 70vh;
-}
+

@@ -1,33 +1,74 @@
 {% extends 'layout.html '%}
 {% block body %}
-    <h1>{{car}}</h1>
-<canvas class="myChart" width="400" height="400"></canvas>
+<h1>{{car}}</h1>
+<div id="test"><p></p></div>
+<canvas class="myChart" width="500" height="400"></canvas>
+<canvas id="yearChart" width="1900" height="400"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
-const chart = document.getElementsByClassName('myChart');
-const newChart1 = new Chart(chart,{
-    type: 'polarArea',
-    data:{
-        labels:['Audi', 'BMW', 'VW'],
-        datasets:[{
-            label:'Population',
-            data:[100,200,400],
-        }]
-    },
-    options: {
-    // apply to change chart's size
-        responsive: false,
-        // make charts looks better
-        devicePixelRatio: 5,
-        scales: {
-            yAxes: [{
-                ticks: {
 
+    //getting data form databases
+    fetch('http://127.0.0.1:5000/home/test')
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            data.forEach((item) =>{
+                console.log(item);
+            })
+             });
+    //making charts
+    const chart = document.getElementsByClassName('myChart');
+    const yearChart = document.getElementById('yearChart');
+    const newChart1 = new Chart(chart, {
+        type: 'polarArea',
+        data: {
+            labels: ['Audi', 'BMW', 'VW'],
+            datasets: [{
+                label: 'Population',
+                data:[100,200,400],
+                backgroundColor: ['#e1c16f','#e67e22', '#26a346'],
             }]
+        },
+        options: {
+            // apply to change chart's size
+            responsive: false,
+            // make charts looks better
+            devicePixelRatio: 2,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
+    });
+    const newChart2 = new Chart(yearChart, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+                label: 'Population',
+                data:[100,200,400,234,456,23,123,789,345,200,123,458],
+            }]
+        },
+        options: {
+            // apply to change chart's size
+            responsive: false,
+            // make charts looks better
+            devicePixelRatio: 2,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 </script>
 
 {% endblock %}

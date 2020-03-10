@@ -1,5 +1,6 @@
 class Car:
     """Car class with basic statistics"""
+
     def __init__(self, car_name, region, number_of_session):
         self.car_name = car_name
         self.region = region
@@ -9,6 +10,12 @@ class Car:
         return f'Car name: {self.car_name}\nRegion: {self.region}'
 
 
-car = Car('TWN', 'APAC', 234)
+    # convert an object to a dictionary
+    def serialize(self):
+        return {
+            'car_name': self.car_name,
+            'region': self.region,
+            'number_of_sessions': self.number_of_session
+        }
 
-print(car)
+
