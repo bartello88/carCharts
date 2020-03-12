@@ -1,10 +1,13 @@
 {% extends 'layout.html '%}
 {% block body %}
 <h1>{{car}}</h1>
-<div id="test"><p></p></div>
-<canvas class="myChart" width="500" height="400"></canvas>
-<canvas id="yearChart" width="1900" height="400"></canvas>
-
+<div class="car-info">
+    <h2>Region:{{region}}</h2>
+</div>
+<div class="region-statistics">
+    <canvas class="myChart" width="500" height="350"></canvas>
+    <canvas id="yearChart" width="1500" height="450"></canvas>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
@@ -14,14 +17,17 @@
             return response.json();
         })
         .then((data) => {
-            console.log(data);
+            console.log(data.car_name);
+            console.log(data.January);
+            console.log(data.car_name);
             data.forEach((item) =>{
-                console.log(item);
+                console.log(item.car_name);
             })
              });
     //making charts
     const chart = document.getElementsByClassName('myChart');
     const yearChart = document.getElementById('yearChart');
+    const yearChart1 = document.getElementById('myChart1');
     const newChart1 = new Chart(chart, {
         type: 'polarArea',
         data: {
@@ -46,20 +52,62 @@
             }
         }
     });
+
     const newChart2 = new Chart(yearChart, {
         type: 'bar',
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-                label: 'Population',
-                data:[100,200,400,234,456,23,123,789,345,200,123,458],
+                label: 'Amount of session per month',
+                data:['{{car_data["January"]}}',200,400,234,456,23,123,789,345,200,123,458],
+                backgroundColor: '#cccccc',
+                label: 'Number of recorded sessions',
+                fill: false,
+                borderWidth: 1,
+            },{
+                label: 'Processed sessions',
+                data:['{{car_data["January"]}}',150,312,200,456,345,23,568,345,200,123,458],
+                backgroundColor: '#ccffcc',
+                label: 'Processed sessions',
+                fill: false,
+                borderWidth: 1,
+            },{
+                label: 'Wrongs',
+                data:['{{car_data["January"]}}',30,45,10,456,345,23,568,345,200,123,458],
+                backgroundColor: '#ff9999',
+                label: 'Processed sessions',
+                fill: false,
+                borderWidth: 1,
+            },{
+                label: 'Rejected by OTM',
+                data:['{{car_data["January"]}}',20,23,5,456,345,23,568,345,200,123,458],
+                backgroundColor: '#ffffb3',
+                label: 'Processed sessions',
+                fill: false,
+                borderWidth: 1,
             }]
         },
         options: {
+            legend: {
+                onclick: newLegendClickHandler,
+                display: true,
+                labels: {
+                    fontColor: 'rgb(000,00,00)'
+                }
+            },
             // apply to change chart's size
-            responsive: false,
+            responsive: true,
             // make charts looks better
             devicePixelRatio: 2,
+            title:{
+                text: 'Sessions',
+                display: true
+            },
+            tooltips: {
+                mode: 'index',
+                axis: 'x'
+            },
+            easing: 'easeOutQuart',
             scales: {
                 yAxes: [{
                     ticks: {
@@ -69,6 +117,26 @@
             }
         }
     });
+    var defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
+    var newLegendClickHandler = function (e, legendItem) {
+        let index = legendItem.datasetIndex;
+
+        if (index > 1) {
+            // Do the original logic
+            defaultLegendClickHandler(e, legendItem);
+        } else {
+            let ci = this.chart;
+            [
+                ci.getDatasetMeta(0),
+                ci.getDatasetMeta(1)
+            ].forEach(function(meta) {
+                meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+
+            });
+            ci.update();
+        }
+    };
+
 </script>
 
 {% endblock %}

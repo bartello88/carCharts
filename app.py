@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, jsonify
 import yaml
 from car import Car
-from data import get_data
+from data import get_data, get_list_of_sessions
 
 app = Flask(__name__)
 
@@ -22,15 +22,20 @@ def region(region):
 
 @app.route('/home/<region>/<car>')
 def car(region, car):
-    return render_template('car.html', car=car)
+    object = get_list_of_sessions()
+    car_data = None
+    for cars in object:
+        if cars['car_name'] == car:
+            print(cars)
+            car_data = cars
+    return render_template('car.html', car=car, car_data=car_data, region = region)
 
 #------------------------------------
 @app.route('/home/test')
 def data():
     car = Car('TWN', 'APAC', 345)
-    object = get_data()
-    print(object)
-    return jsonify(object)
+    object = get_list_of_sessions()
+    return jsonify(object[3])
 
 #------------------------------------
 if __name__ == '__name__':

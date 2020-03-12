@@ -70,6 +70,7 @@ img{
     display: inline-block;
 }
 .region-statistics{
+    display: inline-block;
     position: -webkit-sticky;
     position: sticky;
     top: 50px;
@@ -78,5 +79,15 @@ img{
     width: 80vw;
     height: 86vh;
 }
+.car-info{
+    margin-right: 2.5vw;
+    margin-left: 15px;
+    display: inline-block;
+    float: left;
+    border: 1px solid lightgrey;
+    width: 15vw;
+    height: 86vh;
+}
+
 
 
