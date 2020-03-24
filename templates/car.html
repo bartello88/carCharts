@@ -2,12 +2,14 @@
 {% block body %}
 <h1>{{car}}</h1>
 <div class="car-info">
-    <h2>Region:{{region}}</h2>
+    <h2>Region: {{region}}</h2>
+    <h2>Sessions: {{car_data['sessions']}}</h2>
 </div>
 <div class="region-statistics">
-    <canvas class="myChart" width="500" height="350"></canvas>
-    <canvas id="yearChart" width="1500" height="450"></canvas>
+    <canvas class="myChart" id="wrongsChart" width="500" height="350" style="display: inline-block"></canvas>
+    <canvas id="yearChart" width="1500" height="430"></canvas>
 </div>
+<h3>last actualisation: {{last_actualisation}}</h3>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
@@ -18,23 +20,20 @@
         })
         .then((data) => {
             console.log(data.car_name);
-            console.log(data.January);
-            console.log(data.car_name);
             data.forEach((item) =>{
                 console.log(item.car_name);
             })
              });
     //making charts
-    const chart = document.getElementsByClassName('myChart');
+    const chart = document.getElementById('wrongsChart');
     const yearChart = document.getElementById('yearChart');
-    const yearChart1 = document.getElementById('myChart1');
     const newChart1 = new Chart(chart, {
         type: 'polarArea',
         data: {
             labels: ['Audi', 'BMW', 'VW'],
             datasets: [{
                 label: 'Population',
-                data:[100,200,400],
+                data:[100,200,340],
                 backgroundColor: ['#e1c16f','#e67e22', '#26a346'],
             }]
         },
@@ -58,34 +57,38 @@
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-                label: 'Amount of session per month',
-                data:['{{car_data["January"]}}',200,400,234,456,23,123,789,345,200,123,458],
+                label: 'Recored sessions',
+                data:['{{car_data["01"]}}','{{car_data["02"]}}','{{car_data["03"]}}','{{car_data["04"]}}','{{car_data["05"]}}','{{car_data["06"]}}','{{car_data["07"]}}','{{car_data["08"]}}','{{car_data["09"]}}','{{car_data["10"]}}','{{car_data["11"]}}','{{car_data["12"]}}'],
                 backgroundColor: '#cccccc',
-                label: 'Number of recorded sessions',
                 fill: false,
                 borderWidth: 1,
-            },{
+            }
+            ,{
                 label: 'Processed sessions',
                 data:['{{car_data["January"]}}',150,312,200,456,345,23,568,345,200,123,458],
                 backgroundColor: '#ccffcc',
-                label: 'Processed sessions',
                 fill: false,
                 borderWidth: 1,
             },{
                 label: 'Wrongs',
                 data:['{{car_data["January"]}}',30,45,10,456,345,23,568,345,200,123,458],
                 backgroundColor: '#ff9999',
-                label: 'Processed sessions',
                 fill: false,
                 borderWidth: 1,
             },{
                 label: 'Rejected by OTM',
                 data:['{{car_data["January"]}}',20,23,5,456,345,23,568,345,200,123,458],
                 backgroundColor: '#ffffb3',
-                label: 'Processed sessions',
                 fill: false,
                 borderWidth: 1,
-            }]
+            },{
+                label: 'Waiting for intake',
+                data:['{{car_data["January"]}}',34,23,2,213,230,23,568,345,200,123,458],
+                backgroundColor: '#99ccff',
+                fill: false,
+                borderWidth: 1,
+            }
+            ]
         },
         options: {
             legend: {
@@ -105,13 +108,17 @@
             },
             tooltips: {
                 mode: 'index',
-                axis: 'x'
+                axis: 'x',
+                fontSize: 20,
             },
             easing: 'easeOutQuart',
             scales: {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
+                    },
+                    gridLines: {
+                        offsetGridLines: true
                     }
                 }]
             }

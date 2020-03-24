@@ -1,6 +1,6 @@
 {% extends 'layout.html '%}
 {% block body %}
-<h1>{{region}}</h1>
+    <h1>{{region}}</h1>
 <div class="car-container">
     <div class="cars">
         {% for car in cars[region]['cars'] %}
@@ -10,11 +10,11 @@
         {% endfor %}
     </div>
     <div class="region-statistics">
-    <canvas class="myChart" width="500" height="400"></canvas>
-    <canvas class="myChart2" width="500" height="400"></canvas>
+    <canvas class="myChart" width="500" height="300"></canvas>
+    <canvas class="myChart2" width="1500" height="515"></canvas>
 </div>
 </div>
-
+<h3>last actualisation: {{last_actualisation}}</h3>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 const chart = document.getElementsByClassName('myChart');
@@ -46,11 +46,10 @@ const newChart1 = new Chart(chart,{
 const newChart2 = new Chart(chart2,{
     type: 'bar',
     data:{
-        labels:['Audi', 'BMW', "VW"],
+        labels:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets:[{
-            label:'Population',
-            data:[100,200,400],
-            backgroundColor: ['#49AFFE','#FE4949', '#FE49EE']
+            label:'Recorded sessions',
+            data:{{sessions_per_region[0]['sessions']}},
         }]
     },
     options: {

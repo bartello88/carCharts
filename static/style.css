@@ -1,5 +1,5 @@
-h1{
-    margin: 10px;
+h1,h3{
+    margin-left: 13px;
 }
 .main-container{
     background-image: url(img/backgorund.png);
@@ -64,6 +64,7 @@ img{
 .cars{
     width: 350px;
     float: left;
+    margin-left: -10px;
 }
 
 .car-container{
@@ -77,7 +78,7 @@ img{
     float: left;
     border: 1px solid lightgrey;
     width: 80vw;
-    height: 86vh;
+    height: 87vh;
 }
 .car-info{
     margin-right: 2.5vw;

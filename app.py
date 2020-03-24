@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, jsonify
 import yaml
 from car import Car
-from data import get_data, get_list_of_sessions
+from data import get_list_of_sessions, final_data, last_actualisation, loadYaml, data, sessions_per_region
 
 app = Flask(__name__)
 
@@ -17,36 +17,28 @@ def home():
 def region(region):
     regions, cars = loadYaml()
     carss = ["Audi", "BMW", "VW"]
-    return render_template('region.html', region=region, cars=cars, carss=carss)
+    return render_template('region.html', region=region, cars=cars, carss=carss, last_actualisation=last_actualisation, sessions_per_region=sessions_per_region)
 
 
 @app.route('/home/<region>/<car>')
 def car(region, car):
-    object = get_list_of_sessions()
+    object = final_data
     car_data = None
     for cars in object:
         if cars['car_name'] == car:
             print(cars)
+            print(cars['01'])
             car_data = cars
-    return render_template('car.html', car=car, car_data=car_data, region = region)
+    return render_template('car.html', car=car, car_data=car_data, region = region, last_actualisation=last_actualisation)
 
 #------------------------------------
 @app.route('/home/test')
 def data():
     car = Car('TWN', 'APAC', 345)
-    object = get_list_of_sessions()
-    return jsonify(object[3])
+    object,_= get_list_of_sessions()
+    return jsonify(object[0])
 
 #------------------------------------
 if __name__ == '__name__':
-    app.run()
+    app.run(DEBUG=True)
 
-
-def loadYaml():
-    with open('config.yaml', 'r') as file:
-        data = yaml.load(file, Loader=yaml.FullLoader)
-        regions = data['config']['regions']
-        cars = {'us': {'cars': data['cars']['us']}, 'eu': {'cars': data['cars']['eu']},
-                'lam': {'cars': data['cars']['lam']}, 'apac': {'cars': data['cars']['apac']},
-                'zaf': {'cars': data['cars']['zaf']}, 'rus&ukr': {'cars': data['cars']['rus&ukr']}}
-        return regions, cars
