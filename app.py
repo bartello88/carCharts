@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/home')
 def home():
-    regions, cars = loadYaml()
+    regions, _ = loadYaml()
     return render_template('index.html', regions=regions, )
 
 

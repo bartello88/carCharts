@@ -2,8 +2,14 @@
 {% block body %}
 <h1>{{car}}</h1>
 <div class="car-info">
-    <h2>Region: {{region}}</h2>
-    <h2>Sessions: {{car_data['sessions']}}</h2>
+    <h3>Region: {{region}}</h3>
+    <h3>Sessions: {{car_data['sessions']}}</h3>
+    <h3>W8ing f intake: {{car_data['sessions']}}</h3>
+    <h3>Wrongs: {{car_data['sessions']}}</h3>
+    <h3>Missing: {{car_data['sessions']}}</h3>
+    <h3>Most common wrong: {{car_data['sessions']}}</h3>
+    <h3>Rejected by OTM: {{car_data['sessions']}}</h3>
+    <h3>IMU: {{car_data['sessions']}}</h3>
 </div>
 <div class="region-statistics">
     <canvas class="myChart" id="wrongsChart" width="500" height="350" style="display: inline-block"></canvas>
