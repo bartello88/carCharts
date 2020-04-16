@@ -77,17 +77,17 @@ img{
     top: 50px;
     float: left;
     border: 1px solid lightgrey;
-    width: 80vw;
+    width: 81vw;
     height: 87vh;
 }
 .car-info{
-    margin-right: 2.5vw;
+    margin-right: 1.4vw;
     margin-left: 15px;
     display: inline-block;
     float: left;
     border: 1px solid lightgrey;
-    width: 15vw;
-    height: 86vh;
+    width: 15.5vw;
+    height: 87vh;
 }
 
 

@@ -11,10 +11,10 @@
     </div>
     <div class="region-statistics">
     <canvas class="myChart" width="500" height="300"></canvas>
-    <canvas class="myChart2" width="1500" height="515"></canvas>
+    <canvas class="myChart2" width="1550" height="515"></canvas>
 </div>
 </div>
-<h3>last actualisation: {{last_actualisation}}</h3>
+<h3>last update: {{last_actualisation}}</h3>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 const chart = document.getElementsByClassName('myChart');
@@ -49,8 +49,13 @@ const newChart2 = new Chart(chart2,{
         labels:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets:[{
             label:'Recorded sessions',
-            data:{{sessions_per_region[0]['sessions']}},
-        }]
+            data:{{sessions_per_region[region]}},
+        },{
+            label: 'Created SQLIte',
+            data:{{sessions_per_region_of_processed_data[region]}},
+            backgroundColor: '#ccffcc',
+            }
+            ]
     },
     options: {
         // apply to change chart's size

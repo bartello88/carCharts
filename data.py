@@ -4,6 +4,9 @@ import yaml
 
 last_actualisation = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
+recorded_sessions = 'recorded sessions.txt'
+processed_sessions = 'processed sessions.txt'
+
 
 def loadYaml():
     with open('config.yaml', 'r') as file:
@@ -15,16 +18,29 @@ def loadYaml():
         return regions, cars
 
 
-def get_data_from_text_file():
+def get_data_from_text_file(recorded_sessions):
     try:
-        with open('session_list.txt', 'r') as file:
+        with open(recorded_sessions, 'r') as file:
             data = file.read()
         return data
     except FileNotFoundError as e:
         print(e)
 
 
-data = get_data_from_text_file()
+recorded_data = get_data_from_text_file(recorded_sessions)
+processed_data = get_data_from_text_file(processed_sessions)
+
+
+def adding_to_list_of_data_without_repeats(recorded_data, processed_data):
+    recorded_data += processed_data
+    recorded_data = recorded_data.split('\n')
+    recorded_data = set(recorded_data)
+    recorded_data = list(recorded_data)
+    recorded_data = '\n '.join(recorded_data)
+    return recorded_data
+
+
+recorded_data = adding_to_list_of_data_without_repeats(recorded_data, processed_data)
 
 
 def get_number_of_months(data):
@@ -34,11 +50,11 @@ def get_number_of_months(data):
     return list(months)
 
 
-def get_list_of_sessions():
-    with open('session_list.txt', 'r') as file:
+def get_list_of_sessions(processed_sessions):
+    with open(processed_sessions, 'r') as file:
         data = file.read()
         data_list = data.split('\n')
-        months = get_number_of_months(get_data_from_text_file())
+        months = get_number_of_months(get_data_from_text_file(recorded_sessions))
         full_list = [car.split('_')[0] for car in data_list if car]
         cars_list = list(set(full_list))
         car_dict = {}
@@ -70,7 +86,6 @@ def get_number_of_sessions_per_region(cars, cars_data, months):
     region = {}
     final_region = []
     for key, value in cars_data.items():
-        print(key)
         region['region'] = key
         for car in cars:
             if car['car_name'] in value['cars']:
@@ -78,7 +93,6 @@ def get_number_of_sessions_per_region(cars, cars_data, months):
                     region[month] = car[month]
                 final_region.append(region.copy())
     regions_name = cars_data.keys()
-    print(final_region)
     for region_n in regions_name:
         us = [reg for reg in final_region if reg['region'] == 'us']
         eu = [reg for reg in final_region if reg['region'] == 'eu']
@@ -86,12 +100,6 @@ def get_number_of_sessions_per_region(cars, cars_data, months):
         lam = [reg for reg in final_region if reg['region'] == 'lam']
         zaf = [reg for reg in final_region if reg['region'] == 'zaf']
         rus_ukr = [reg for reg in final_region if reg['region'] == 'rus&ukr']
-    print(us)
-    print(eu)
-    print(apac)
-    print(lam)
-    print(zaf)
-    print(rus_ukr)
     result = []
     temp = {}
     list = []
@@ -100,20 +108,64 @@ def get_number_of_sessions_per_region(cars, cars_data, months):
         for u in us:
             sum += u[mon]
         list.append(sum)
-    temp['region'] = 'us'
-    temp['sessions'] = list
-    result.append(temp)
-    print(result)
-    return result
+    final_result = {}
+    final_result['us'] = list
+    list = []
+    for mon in months:
+        sum = 0
+        for u in eu:
+            sum += u[mon]
+        list.append(sum)
+    final_result['eu'] = list
+    list = []
+    for mon in months:
+        sum = 0
+        for u in apac:
+            sum += u[mon]
+        list.append(sum)
+    final_result['apac'] = list
+    list = []
+    for mon in months:
+        sum = 0
+        for u in eu:
+            sum += u[mon]
+        list.append(sum)
+    final_result['eu'] = list
+    list = []
+    for mon in months:
+        sum = 0
+        for u in lam:
+            sum += u[mon]
+        list.append(sum)
+    final_result['lam'] = list
+    list = []
+    for mon in months:
+        sum = 0
+        for u in zaf:
+            sum += u[mon]
+        list.append(sum)
+    final_result['zaf'] = list
+    list = []
+    for mon in months:
+        sum = 0
+        for u in rus_ukr:
+            sum += u[mon]
+        list.append(sum)
+    final_result['rus&ukr'] = list
+
+    return final_result
 
 
-
+# recorded sessions
 regions, cars_data = loadYaml()
-cars, months = get_list_of_sessions()
+cars, months = get_list_of_sessions(recorded_sessions)
 
-final_data = find_number_of_sessions_per_month(data, cars, months)
-
-get_number_of_sessions_per_region(cars, cars_data, months)
+final_data = find_number_of_sessions_per_month(recorded_data, cars, months)
 
 sessions_per_region = get_number_of_sessions_per_region(cars, cars_data, months)
-print(sessions_per_region[0]['sessions'])
+
+# processed sessions
+cars, months = get_list_of_sessions(processed_sessions)
+final_data_of_processed_sessions = find_number_of_sessions_per_month(processed_data, cars, months)
+
+sessions_per_region_of_processed_data = get_number_of_sessions_per_region(cars, cars_data, months)

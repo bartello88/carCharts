@@ -15,7 +15,7 @@
     <canvas class="myChart" id="wrongsChart" width="500" height="350" style="display: inline-block"></canvas>
     <canvas id="yearChart" width="1500" height="430"></canvas>
 </div>
-<h3>last actualisation: {{last_actualisation}}</h3>
+<h3>last update: {{last_actualisation}}</h3>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
@@ -25,10 +25,7 @@
             return response.json();
         })
         .then((data) => {
-            console.log(data.car_name);
-            data.forEach((item) =>{
-                console.log(item.car_name);
-            })
+            console.log(data);
              });
     //making charts
     const chart = document.getElementById('wrongsChart');
@@ -36,10 +33,10 @@
     const newChart1 = new Chart(chart, {
         type: 'polarArea',
         data: {
-            labels: ['Audi', 'BMW', 'VW'],
+            labels: ['Wrongs', 'OTM', 'Junk','RTK wrongs','Ladybug position'],
             datasets: [{
                 label: 'Population',
-                data:[100,200,340],
+                data:[100,200,340,98,125],
                 backgroundColor: ['#e1c16f','#e67e22', '#26a346'],
             }]
         },
@@ -63,34 +60,16 @@
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-                label: 'Recored sessions',
+                label: 'Recorded sessions',
                 data:['{{car_data["01"]}}','{{car_data["02"]}}','{{car_data["03"]}}','{{car_data["04"]}}','{{car_data["05"]}}','{{car_data["06"]}}','{{car_data["07"]}}','{{car_data["08"]}}','{{car_data["09"]}}','{{car_data["10"]}}','{{car_data["11"]}}','{{car_data["12"]}}'],
                 backgroundColor: '#cccccc',
                 fill: false,
                 borderWidth: 1,
             }
             ,{
-                label: 'Processed sessions',
-                data:['{{car_data["January"]}}',150,312,200,456,345,23,568,345,200,123,458],
+                label: 'Panoramix',
+                data:['{{car_data_of_prcessed_sessions["01"]}}','{{car_data_of_prcessed_sessions["02"]}}','{{car_data_of_prcessed_sessions["03"]}}','{{car_data_of_prcessed_sessions["04"]}}','{{car_data_of_prcessed_sessions["05"]}}','{{car_data_of_prcessed_sessions["06"]}}','{{car_data_of_prcessed_sessions["07"]}}','{{car_data_of_prcessed_sessions["08"]}}','{{car_data_of_prcessed_sessions["09"]}}','{{car_data_of_prcessed_sessions["10"]}}','{{car_data_of_prcessed_sessions["11"]}}','{{car_data_of_prcessed_sessions["12"]}}'],
                 backgroundColor: '#ccffcc',
-                fill: false,
-                borderWidth: 1,
-            },{
-                label: 'Wrongs',
-                data:['{{car_data["January"]}}',30,45,10,456,345,23,568,345,200,123,458],
-                backgroundColor: '#ff9999',
-                fill: false,
-                borderWidth: 1,
-            },{
-                label: 'Rejected by OTM',
-                data:['{{car_data["January"]}}',20,23,5,456,345,23,568,345,200,123,458],
-                backgroundColor: '#ffffb3',
-                fill: false,
-                borderWidth: 1,
-            },{
-                label: 'Waiting for intake',
-                data:['{{car_data["January"]}}',34,23,2,213,230,23,568,345,200,123,458],
-                backgroundColor: '#99ccff',
                 fill: false,
                 borderWidth: 1,
             }
