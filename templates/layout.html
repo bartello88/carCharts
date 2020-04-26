@@ -8,7 +8,9 @@
 </head>
 <body>
     {% include 'include/navbar.html' %}
+    <div id="main-site-container">
     {% block body%}{% endblock %}
+    </div>
     <script src="{{url_for('static', filename = 'script.js')}}"></script>
 </body>
 </html>

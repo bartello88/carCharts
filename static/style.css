@@ -90,5 +90,35 @@ img{
     height: 87vh;
 }
 
+.footer{
+    background-color: black;
+    height: 200px;
+}
+#search-list{
+    position: absolute;
+    min-height: 0vh;
+    width: 205px;
+    float: right;
+    left: 83.5vw;
+    top: 6vh;
+    z-index: 10;
+    background-color: white;
+    display: none;
+    padding-top: 15px;
+}
 
+#search-list li {
+    list-style-type: none;
 
+}
+#search-car-lists{
+    margin-left: 20px;
+}
+
+.car-element :hover{
+   border-bottom: 1px solid black;
+}
+#search-list a {
+    text-decoration: none;
+    color: inherit;
+}

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, jsonify
+from flask import Flask, jsonify, render_template
 import yaml
 from car import Car
 from data import get_list_of_sessions, final_data, last_actualisation, loadYaml, sessions_per_region, sessions_per_region_of_processed_data, final_data_of_processed_sessions
