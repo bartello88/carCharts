@@ -93,6 +93,7 @@ img{
 .footer{
     background-color: black;
     height: 200px;
+    margin-top: 5px;
 }
 #search-list{
     position: absolute;
@@ -100,19 +101,22 @@ img{
     width: 205px;
     float: right;
     left: 83.5vw;
-    top: 6vh;
+    top: 60px;
     z-index: 10;
     background-color: white;
     display: none;
     padding-top: 15px;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
 }
 
 #search-list li {
     list-style-type: none;
+    margin-top: 4px;
 
 }
 #search-car-lists{
-    margin-left: 20px;
+    margin-left: 23px;
 }
 
 .car-element :hover{
@@ -121,4 +125,14 @@ img{
 #search-list a {
     text-decoration: none;
     color: inherit;
+    font-size: 17px;
+}
+#add-info{
+    position: absolute;
+    width: 200px;
+    height:300px;
+    background-color: white;
+    display: none;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }

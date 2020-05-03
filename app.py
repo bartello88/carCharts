@@ -38,8 +38,12 @@ def car(region, car):
 @app.route('/home/test')
 def data():
     car = Car('TWN', 'APAC', 345)
-    object,_= get_list_of_sessions()
-    return jsonify(object[0])
+    car2 = {
+        'name': 'MBV',
+        'year': 123
+    }
+    # object,_= get_list_of_sessions()
+    return jsonify(car2)
 
 #------------------------------------
 if __name__ == '__name__':
