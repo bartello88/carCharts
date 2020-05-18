@@ -16,17 +16,17 @@
     <canvas id="yearChart" width="1500" height="430"></canvas>
 </div>
 <h3>last update: {{last_actualisation}}</h3>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
-    //getting data form databases
-    fetch('http://127.0.0.1:5000/home/test')
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-             });
+    axios.get('http://127.0.0.1:5000/home/test')
+    .then(
+        response=> console.log(response.data),
+        reason => console.log(reason)
+    )
+
+
     //making charts
     const chart = document.getElementById('wrongsChart');
     const yearChart = document.getElementById('yearChart');
@@ -54,6 +54,7 @@
             }
         }
     });
+    {% if car_data_of_prcessed_sessions %}
 
     const newChart2 = new Chart(yearChart, {
         type: 'bar',
@@ -75,7 +76,7 @@
             },
             {
                 label: 'Waiting, Wrongs & OTM',
-                data:[{{car_data['01']}}-{{car_data_of_prcessed_sessions["01"]}},{{car_data['02']}}-{{car_data_of_prcessed_sessions["02"]}},{{car_data['03']}}-{{car_data_of_prcessed_sessions["03"]}},{{car_data['04']}}-{{car_data_of_prcessed_sessions["04"]}},{{car_data['05']}}-{{car_data_of_prcessed_sessions["05"]}},'{{car_data_of_prcessed_sessions["06"]}}','{{car_data_of_prcessed_sessions["07"]}}','{{car_data_of_prcessed_sessions["08"]}}','{{car_data_of_prcessed_sessions["09"]}}','{{car_data_of_prcessed_sessions["10"]}}','{{car_data_of_prcessed_sessions["11"]}}','{{car_data_of_prcessed_sessions["12"]}}'],
+                data:[{{car_data['01']}}-{{car_data_of_prcessed_sessions["01"]}},{{car_data['02']}}-{{car_data_of_prcessed_sessions["02"]}},{{car_data['03']}}-{{car_data_of_prcessed_sessions["03"]}},{{car_data['04']}}-{{car_data_of_prcessed_sessions["04"]}},{{car_data['05']}}-{{car_data_of_prcessed_sessions["05"]}},{{car_data['06']}}-{{car_data_of_prcessed_sessions["06"]}},{{car_data['07']}}-{{car_data_of_prcessed_sessions["07"]}},{{car_data['08']}}-{{car_data_of_prcessed_sessions["08"]}},{{car_data['09']}}-{{car_data_of_prcessed_sessions["09"]}},{{car_data['10']}}-{{car_data_of_prcessed_sessions["10"]}},{{car_data['11']}}-{{car_data_of_prcessed_sessions["11"]}},{{car_data['12']}}-{{car_data_of_prcessed_sessions["12"]}}],
                 backgroundColor: '#ff9999',
                 fill: false,
                 borderWidth: 1,
@@ -116,6 +117,62 @@
             }
         }
     });
+    {% elif car_data_of_prcessed_sessions is none  %}
+    const newChart2 = new Chart(yearChart, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+                label: 'Recorded sessions',
+                data:['{{car_data["01"]}}','{{car_data["02"]}}','{{car_data["03"]}}','{{car_data["04"]}}','{{car_data["05"]}}','{{car_data["06"]}}','{{car_data["07"]}}','{{car_data["08"]}}','{{car_data["09"]}}','{{car_data["10"]}}','{{car_data["11"]}}','{{car_data["12"]}}'],
+                backgroundColor: '#cccccc',
+                fill: false,
+                borderWidth: 1,
+            }
+                ,{
+                    label: 'Panoramix',
+                    data:['{{car_data_of_prcessed_sessions["01"]}}','{{car_data_of_prcessed_sessions["02"]}}','{{car_data_of_prcessed_sessions["03"]}}','{{car_data_of_prcessed_sessions["04"]}}','{{car_data_of_prcessed_sessions["05"]}}','{{car_data_of_prcessed_sessions["06"]}}','{{car_data_of_prcessed_sessions["07"]}}','{{car_data_of_prcessed_sessions["08"]}}','{{car_data_of_prcessed_sessions["09"]}}','{{car_data_of_prcessed_sessions["10"]}}','{{car_data_of_prcessed_sessions["11"]}}','{{car_data_of_prcessed_sessions["12"]}}'],
+                    backgroundColor: '#ccffcc',
+                    fill: false,
+                    borderWidth: 1,
+                }
+    ]
+    },
+    options: {
+        legend: {
+            onclick: newLegendClickHandler,
+                display: true,
+                labels: {
+                fontColor: 'rgb(000,00,00)'
+            }
+        },
+        // apply to change chart's size
+        responsive: true,
+            // make charts looks better
+            devicePixelRatio: 2,
+            title:{
+            text: 'Sessions',
+                display: true
+        },
+        tooltips: {
+            mode: 'index',
+                axis: 'x',
+                fontSize: 20,
+        },
+        easing: 'easeOutQuart',
+            scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                gridLines: {
+                    offsetGridLines: true
+                }
+            }]
+        }
+    }
+    });
+    {% endif %}
     var defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
     var newLegendClickHandler = function (e, legendItem) {
         let index = legendItem.datasetIndex;
@@ -139,3 +196,5 @@
 </script>
 
 {% endblock %}
+
+
